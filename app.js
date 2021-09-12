@@ -8,11 +8,13 @@ app.get("/", function (req, res) {
     "https://api.openweathermap.org/data/2.5/weather?q=London&appid=1d47f431cd5781e0016399043e86fa8f&units=metric";
 
   https.get(url, function (response) {
-    // Challenge: Print the Weather Description
     response.on("data", function (data) {
       const weatherData = JSON.parse(data);
+      const temp = weatherData.main.temp;
       const weatherDescription = weatherData.weather[0].description;
       console.log(weatherDescription);
+
+      res.send("The temperature in London is: " + temp + "°C");
     });
   });
 
